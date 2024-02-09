@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anniversaire Virginie</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden; /* Empêche les barres de défilement */
+        }
+
+        #background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom right, #0000FF, #800080);
+            z-index: -1; /* Positionnez-le en arrière-plan */
+        }
+
+        .content {
+            color: whitesmoke;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+            position: relative; /* Pour empiler le contenu par-dessus l'arrière-plan */
+        }
+
+        h1 {
+            font-size: 3em;
+        }
+
+        #countdown {
+            font-size: 2em;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="background"></div>
+    <div class="content">
+        <h1>Anniversaire Virginie</h1>
+        <div id="countdown">00:00:00</div>
+    </div>
+
+    <script>
+        // Définir la date limite du compte à rebours (à personnaliser)
+        const deadline = new Date("2024-04-25 00:00:00").getTime();
+
+        // Mettre à jour le compte à rebours chaque seconde
+        const countdown = setInterval(function () {
+            const now = new Date().getTime();
+            const timeRemaining = deadline - now;
+
+            if (timeRemaining <= 0) {
+                clearInterval(countdown);
+                document.getElementById("countdown").innerHTML = "EXPIRÉ";
+            } else {
+                const days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+
+                const countdownText = `${days.toString().padStart(2, "0")}:${hours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
+                document.getElementById("countdown").innerHTML = countdownText;
+            }
+        }, 1000);
+    </script>
+</body>
+</html>
